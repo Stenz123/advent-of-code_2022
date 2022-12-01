@@ -1,0 +1,22 @@
+// the document title is moved to a 0-level heading to allow the logo to be placed above the title on GitHub
+:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: src/main/java
+:icons: font
+:toc: left
+:experimental:
+:doctype: book
+:important-caption: :heavy_exclamation_mark:
+
+== Creator:
+=== image:https://img.shields.io/github/followers/Stenz123?label=Stenz123&logo=github[]
+
+== Advent of Code 2022
+=== https://adventofcode.com/
+
+== Solutions
+link:src/aoc/day/days/[Link]
+
+== Creating a new day
+. Create a new class in the package `aoc.day.days` named Day{day}.java
+. make the new day extend the Day class
+. Execute Main
