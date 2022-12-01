@@ -7,7 +7,7 @@
 :doctype: book
 :important-caption: :heavy_exclamation_mark:
 
-== Creator:
+== Contributor:
 === image:https://img.shields.io/github/followers/Stenz123?label=Stenz123&logo=github[]
 
 == Advent of Code 2022
