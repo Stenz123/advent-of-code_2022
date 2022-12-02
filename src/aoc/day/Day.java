@@ -8,10 +8,14 @@ import java.util.List;
 
 public abstract class Day {
     private int day;
-    public Day(){
-        this.day = Integer.parseInt(String.valueOf(this.getClass().getSimpleName().charAt(3)));
+    public Day() {
+        String substring = this.getClass().getSimpleName().substring(3, this.getClass().getSimpleName().length());
+        try {
+            this.day = Integer.parseInt(String.valueOf(substring));
+        }catch (NumberFormatException e){
+            System.out.println("Invalid number after 'Day' in class name");
+        }
     }
-
     public int getDay() {
         return day;
     }
