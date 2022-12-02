@@ -3,8 +3,8 @@ package aoc.day;
 public class Solution {
 
     private int day;
-    private Object solution1;
-    private Object solution2;
+    private Object solution1 = null;
+    private Object solution2 = null;
 
     public Solution(int day, Object solution1, Object solution2){
         this.solution1 = solution1;
@@ -14,9 +14,12 @@ public class Solution {
     public Solution(int day, Object solution1){
         this.day=day;
         this.solution1=solution1;
+        this.solution2=-1;
     }
     public Solution(int day){
         this.day=day;
+        this.solution1=-1;
+        this.solution2=-1;
     }
 
     public Object getSolution1() {
