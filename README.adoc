@@ -17,6 +17,7 @@
 link:src/aoc/day/days/[Link]
 
 == Creating a new day
-. Create a new class in the package `aoc.day.days` named Day{day}.java
+. Create a new class in the package `aoc.day.days` named `Day{dayNumber}.java`
 . make the new day extend the Day class
+. put input into the link:data/[] folder, and name it `day{dayNumber}.txt`
 . Execute Main
