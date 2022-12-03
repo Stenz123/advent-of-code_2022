@@ -1,12 +1,12 @@
 package aoc.day;
 
-public class Solution {
+public class Solution implements Comparable<Solution> {
 
     private int day;
     private Object solution1 = null;
     private Object solution2 = null;
 
-    public Solution(int day, Object solution1, Object solution2){
+    public Solution(int day, Object solution1, Object solution2) {
         this.solution1 = solution1;
         this.solution2 = solution2;
         this.day = day;
@@ -47,5 +47,10 @@ public class Solution {
     @Override
     public String toString() {
         return String.format("Day %d: {%s, %s}",day, solution1.toString(), solution2.toString());
+    }
+
+    @Override
+    public int compareTo(Solution o) {
+        return Integer.compare(this.day, o.getDay());
     }
 }

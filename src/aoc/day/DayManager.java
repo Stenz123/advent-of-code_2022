@@ -17,12 +17,13 @@ public class DayManager {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+        List<Solution> output = new ArrayList();
         for (Class c: classes) {
             try {
                 String cName = c.getSimpleName();
                 if(cName.startsWith("Day")&&Day.class.isAssignableFrom(c)){
                     Day day = (Day) c.getConstructor().newInstance();
-                    System.out.println(day.solve());
+                    output.add(day.solve());
                 }else {
                     throw new RuntimeException("Class "+cName+" doesnt extend day or doesnt start with 'Day'");
                 }
@@ -30,7 +31,10 @@ public class DayManager {
             throw new RuntimeException(e);
             }
         }
-
+        Collections.sort(output);
+        for (Solution s:output) {
+            System.out.println(s);
+        }
     }
 
 
