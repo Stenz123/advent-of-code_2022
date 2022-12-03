@@ -40,4 +40,14 @@ public class Day1 extends Day {
 
         return new Solution(this.getDay(),sums.get(0),sums.get(0)+sums.get(1)+sums.get(2));
     }
+
+    @Override
+    public Object part1() {
+        return null;
+    }
+
+    @Override
+    public Object part2() {
+        return null;
+    }
 }

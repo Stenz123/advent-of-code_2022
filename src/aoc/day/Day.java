@@ -20,7 +20,11 @@ public abstract class Day {
         return day;
     }
 
-    public abstract Solution solve();
+    public Solution solve() {
+        return new Solution(getDay(), part1(), part2());
+    }
+    public abstract Object part1();
+    public abstract Object part2();
 
     public List<String> getDayInput(){
         Path filePath = Paths.get(String.format("data/day%d.txt", this.day));

@@ -13,13 +13,9 @@ public class Day2 extends Day {
     }
 
     @Override
-    public Solution solve() {
+    public Object part1(){
         List<String> rawInput = this.getDayInput();
-        List<String> rawInput2 = new ArrayList<>(rawInput);
-        return new Solution(getDay(),part1(rawInput),part2(rawInput2) );
-    }
-
-    private int part1(List<String> rawInput){
+        
         List<List<String>> input = new ArrayList<>();
         int totalScore = 0;
         for (int i = 0; i < rawInput.size(); i++) {
@@ -28,8 +24,9 @@ public class Day2 extends Day {
         }
         return totalScore;
     }
-
-    private int part2(List<String> rawInput){
+    @Override
+    public Object part2(){
+        List<String> rawInput = this.getDayInput();
         List<List<String>> input = new ArrayList<>();
         int totalScore = 0;
         for (int i = 0; i < rawInput.size(); i++) {
