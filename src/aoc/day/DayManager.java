@@ -25,7 +25,6 @@ public class DayManager {
                     Day day = (Day) c.getConstructor().newInstance();
                     output.add(day.solve());
                 }else {
-                    throw new RuntimeException("Class "+cName+" doesnt extend day or doesnt start with 'Day'");
                 }
             } catch (Exception e){
             throw new RuntimeException(e);
