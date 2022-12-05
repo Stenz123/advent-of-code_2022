@@ -21,6 +21,11 @@ public abstract class Day {
     }
 
     public Solution solve() {
+        Object part1 = part1();
+        Object part2 = part2();
+        if (part1==null)part1="Not solved yet!";
+        if (part2==null)part2="Not solved yet!";
+
         return new Solution(getDay(), part1(), part2());
     }
     public abstract Object part1();
