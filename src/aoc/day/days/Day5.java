@@ -7,84 +7,30 @@ import java.util.*;
 
 public class Day5 extends Day {
 
-    Stack<Character> stack1 = new Stack<>();
-    Stack<Character> stack2 = new Stack<>();
-    Stack<Character> stack3 = new Stack<>();
-    Stack<Character> stack4 = new Stack<>();
-    Stack<Character> stack5 = new Stack<>();
-    Stack<Character> stack6 = new Stack<>();
-    Stack<Character> stack7 = new Stack<>();
-    Stack<Character> stack8 = new Stack<>();
-    Stack<Character> stack9 = new Stack<>();
+    Stack<Character> stack1;
+    Stack<Character> stack2;
+    Stack<Character> stack3;
+    Stack<Character> stack4;
+    Stack<Character> stack5;
+    Stack<Character> stack6;
+    Stack<Character> stack7;
+    Stack<Character> stack8;
+    Stack<Character> stack9;
 
     List<Stack<Character>> stacks = new ArrayList<>();
-    public Day5(){
 
-        stack1.push('B');
-        stack1.push('V');
-        stack1.push('S');
-        stack1.push('N');
-        stack1.push('T');
-        stack1.push('C');
-        stack1.push('H');
-        stack1.push('Q');
+    private void initStacks(){
+        stacks = new ArrayList<>();
 
-        stack2.push('W');
-        stack2.push('D');
-        stack2.push('B');
-        stack2.push('G');
-
-        stack3.push('F');
-        stack3.push('W');
-        stack3.push('R');
-        stack3.push('T');
-        stack3.push('S');
-        stack3.push('Q');
-        stack3.push('B');
-
-        stack4.push('L');
-        stack4.push('G');
-        stack4.push('W');
-        stack4.push('S');
-        stack4.push('Z');
-        stack4.push('J');
-        stack4.push('D');
-        stack4.push('N');
-
-        stack5.push('M');
-        stack5.push('P');
-        stack5.push('D');
-        stack5.push('V');
-        stack5.push('F');
-
-        stack6.push('F');
-        stack6.push('W');
-        stack6.push('J');
-
-        stack7.push('L');
-        stack7.push('N');
-        stack7.push('Q');
-        stack7.push('B');
-        stack7.push('J');
-        stack7.push('V');
-
-        stack8.push('G');
-        stack8.push('T');
-        stack8.push('R');
-        stack8.push('C');
-        stack8.push('J');
-        stack8.push('Q');
-        stack8.push('S');
-        stack8.push('N');
-
-        stack9.push('J');
-        stack9.push('S');
-        stack9.push('Q');
-        stack9.push('C');
-        stack9.push('W');
-        stack9.push('D');
-        stack9.push('M');
-
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
+        stack3 = new Stack<>();
+        stack4 = new Stack<>();
+        stack5 = new Stack<>();
+        stack6 = new Stack<>();
+        stack7 = new Stack<>();
+        stack8 = new Stack<>();
+        stack9 = new Stack<>();
         stacks.add(stack1);
         stacks.add(stack2);
         stacks.add(stack3);
@@ -95,11 +41,23 @@ public class Day5 extends Day {
         stacks.add(stack8);
         stacks.add(stack9);
 
+        List<String> input = getDayInput();
+        for (int i = 7; i >= 0; i--) {
+            int k = 0;
+            for (int j= 1; j <= 33; j+=4) {
+                char temp = input.get(i).charAt(j);
+                if (temp != ' '){
+                    stacks.get(k).add(temp);
+                }
+                k++;
+            }
+        }
     }
 
     @Override
     public Object part1() {
-        /*List<List<Integer>> input = parseInput();
+        initStacks();
+        List<List<Integer>> input = parseInput();
 
         for (int i = 0; i < input.size();i++){
             for (int j = 0; j < input.get(i).get(0);j++){
@@ -112,8 +70,8 @@ public class Day5 extends Day {
         String result = "";
         for (int i = 0; i < stacks.size();i++){
             result += stacks.get(i).peek();
-        }*/
-        return -1;
+        }
+        return result;
     }
 
     @Override
@@ -140,11 +98,12 @@ public class Day5 extends Day {
     }
 
     private List<List<Integer>> parseInput(){
+        initStacks();
         List<String> rawInput = this.getDayInput();
 
         List<List<Integer>> result = new ArrayList<>();
         //move 1 from 2 to 1
-        for (int i = 0; i < rawInput.size();i++){
+        for (int i = 10; i < rawInput.size();i++){
             String[] s = rawInput.get(i).split(" ");
             List<Integer> temp = new ArrayList<>();
             temp.add(Integer.parseInt(s[1]));
