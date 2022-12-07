@@ -2,7 +2,8 @@ package aoc.day.days;
 
 import java.util.*;
 import aoc.day.Day;
-import org.reflections.vfs.Vfs;
+import aoc.day.days.day7.Directory;
+import aoc.day.days.day7.File;
 
 public class Day7 extends Day {
 

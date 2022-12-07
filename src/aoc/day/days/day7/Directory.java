@@ -1,4 +1,4 @@
-package aoc.day.days;
+package aoc.day.days.day7;
 
 public class Directory {
     private String name;

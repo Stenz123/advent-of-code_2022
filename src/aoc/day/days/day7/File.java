@@ -1,4 +1,4 @@
-package aoc.day.days;
+package aoc.day.days.day7;
 
 public class File {
     private String name;
