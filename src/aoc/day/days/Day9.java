@@ -22,12 +22,37 @@ public class Day9 extends Day {
             String[] parts = rawInput.get(i).split(" ");
             dirctions.add(parts[0].charAt(0));
             distance.add(Integer.parseInt(parts[1]));
+        }
+        for (int i = 0; i < dirctions.size(); i++) {
             head.move(distance.get(i),dirctions.get(i));
         }
-
-        markedFields.add(new Koordinate(0,0));
+        printVisitedGrid();
         return markedFields.size();
 
+
+    }
+    private void printVisitedGrid() {
+
+        // print grid
+        // start at 0,0 (bottom left)
+        for (int i = 20; i >= 0; i--) {
+            for (int j = 0; j < 25; j++) {
+                boolean found = false;
+                for (Koordinate k : markedFields) {
+                     if (k.getX() == j && k.getY() == i) {
+                         found = true;
+                        System.out.print("X");
+                        break;
+                     }
+                }
+                if (!found) {
+                    System.out.print(".");
+                }
+
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------------");
     }
 
     @Override
@@ -36,25 +61,39 @@ public class Day9 extends Day {
     }
 }
 
+
+
 class Node {
     private Koordinate koordinate;
     private Node child;
     private Node parent;
-    private int id;
+    public int id;
 
     List<ChildField> childFields;
 
-    public Node(int id) {
-        this.id = id;
-        this.koordinate = new Koordinate(0,0);
+    private static List<Node> childrean = new ArrayList<>();
+    private static Node head;
 
+
+    public Node(int id) {
+        markedFields.clear();
+        this.id = id;
+        this.koordinate = new Koordinate(11,5);
+        markedFields.add(koordinate);
+
+        if (id == 0) {
+            head = this;
+        }
         if (id != 9) {
             this.child = new Node(id + 1);
             child.parent = this;
+            childrean.add(child);
         }
-
     }
     public void move(int distance, char direction) {
+
+
+
         for (int i = 0; i < distance; i++) {
             childFields= new ArrayList<>();
             if (direction == 'R') {
@@ -88,11 +127,10 @@ class Node {
             }
             childFields.add(new ChildField(3,new Koordinate(koordinate.getX(),koordinate.getY())));
 
-            if (this.koordinate.equals(new Koordinate(4,4))) {
-                System.out.println();
-            }
+
             child.followParent();
         }
+        //util.printGrid(40,40,head,childrean);
     }
     public void followParent(){
         if (parent != null) {
@@ -102,10 +140,7 @@ class Node {
             Collections.sort(intersect);
 
             if (intersect.contains(koordinate)) return;
-            if (intersect.size() == 4) return;
-            if (intersect.size()==0){
-                System.out.println("Error");
-            }
+
             if(intersect.get(0).equals(koordinate))return;
 
 
@@ -114,11 +149,9 @@ class Node {
             koordinate = intersect.get(0);
             this.childFields = getChildFields(koordinate,oldKoordinate);
 
-            if(id==4&&koordinate.equals(new Koordinate(2,7))){
-                System.out.println("intersect = " + intersect);
-            }
-
             if (this.child != null) {
+                //util.printGrid(30,30,head,childrean);
+                //System.out.println(id+" "+koordinate);
                 this.child.followParent();
             }else {
                 markedFields.add(koordinate);
@@ -178,6 +211,7 @@ class Node {
 
         return childFields;
 
+
     }
 
     private List<Koordinate> getSurroundingFields() {
@@ -197,7 +231,9 @@ class Node {
         return surroundingFields;
     }
 
-    private Koordinate getKoordinate() {
+
+
+    public Koordinate getCoordinate() {
         return koordinate;
     }
 }
@@ -258,5 +294,31 @@ class Koordinate {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+}
+
+class util{
+    public static void printGrid(int width, int height, Node head, List<Node> tails) {
+        for (int i = height; i >= 0; i--) {
+            for (int j = 0; j < width; j++) {
+                if (head.getCoordinate().getX() == j && head.getCoordinate().getY() == i) {
+                    System.out.print(" H ");
+                } else {
+                    boolean isTail = false;
+                    for (Node tail : tails) {
+                        if (tail.getCoordinate().getX() == j && tail.getCoordinate().getY() == i) {
+                            System.out.print(" " + tail.id + " ");
+                            isTail = true;
+                            break;
+                        }
+                    }
+                    if (!isTail) {
+                        System.out.print(" . ");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
