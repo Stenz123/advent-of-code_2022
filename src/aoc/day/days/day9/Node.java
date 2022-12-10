@@ -94,7 +94,7 @@ public class Node {
 
             if (this.child != null) {
                 //util.printGrid(26,20,head,childrean);
-                System.out.println(id+" "+koordinate);
+                //System.out.println(id+" "+koordinate);
                 this.child.followParent();
             } else {
                 markedFields.add(koordinate);
