@@ -53,7 +53,52 @@ public class Day10 extends Day{
 
     @Override
     public Object part2() {
-        return -1;
+        List<Command> commands = parseInput();
+
+        Number y = new Number(1);
+
+        Number sprite = new Number(1);
+
+
+        int solution = 0;
+        int cycles = 1;
+        int commandIndex = 0;
+        List<Boolean> lines = new ArrayList<>();
+        lines.add(false);
+        do {
+
+            if (y.value == cycles%40-1 || y.value+1 == cycles%40-1 || y.value-1 == cycles%40-1) {
+                lines.add(true);
+            }else {
+                lines.add(false);
+            }
+            Command command = commands.get(commandIndex);
+            if (command.execute(y)!=null){
+                commandIndex++;
+            }
+
+            cycles++;
+
+            if (cycles ==240 || cycles == 200 || cycles == 160 || cycles == 120 || cycles == 80 || cycles == 40){
+                for (boolean  b: lines){
+                    if (b){
+                        System.out.print(" # ");
+                    }else{
+                        System.out.print(" . ");
+                    }
+                }
+                System.out.println();
+                lines.clear();
+            }
+            if (cycles == 240){
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                break;
+
+            }
+        }while (true);
+        return solution;
     }
 }
 
