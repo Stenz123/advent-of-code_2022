@@ -108,7 +108,71 @@ public class Board {
         }
         return steps;
     }
+    public int findShortestPathPart2(){
+        List<IntPair> valueA = new ArrayList<>();
+        //get All items with value a
+        for (IntPair k : map.keySet()) {
+            char c = map.get(k);
+            if(c=='a'){
+                valueA.add(k);
+            }
+        }
+        List<Integer> allSteps = new ArrayList<>();
+        for (IntPair pair0 : valueA) {
+            List<IntPair> visited = new ArrayList<>();
+            List<IntPair> toVisit = new ArrayList<>();
 
+
+            toVisit.add(pair0);
+            int steps = 0;
+            while(!toVisit.isEmpty()){
+                List<IntPair> newToVisit = new ArrayList<>();
+                for (IntPair pair : toVisit) {
+                    if(pair.equals(goal)){
+                        allSteps.add(steps);
+                        break;
+                    }
+                    if(visited.contains(pair)){
+                        continue;
+                    }
+                    visited.add(pair);
+                    char c = getFromCoordinates(pair.x, pair.y);
+                    if(canVisitPart2(pair.x, pair.y+1, c)){
+                        newToVisit.add(new IntPair(pair.x, pair.y+1));
+                    }
+                    if(canVisitPart2(pair.x, pair.y-1, c)){
+                        newToVisit.add(new IntPair(pair.x, pair.y-1));
+                    }
+                    if(canVisitPart2(pair.x+1, pair.y, c)){
+                        newToVisit.add(new IntPair(pair.x+1, pair.y));
+                    }
+                    if(canVisitPart2(pair.x-1, pair.y, c)){
+                        newToVisit.add(new IntPair(pair.x-1, pair.y));
+                    }
+                }
+                toVisit = newToVisit;
+                steps++;
+            }
+        }
+        //find the shortest path
+        int min = Integer.MAX_VALUE;
+        for (Integer i : allSteps) {
+            if(i<min){
+                min = i;
+            }
+        }
+        return min;
+    }
+    public boolean canVisitPart2(int x, int y, char c){
+        char c1= getFromCoordinates(x, y);
+
+        if(c1==' ')return false;
+        if (c == 'z' && c1 == 'E')return true;
+        if (c1 == 'S')return true;
+        if (c=='S')return true;
+        c++;
+        return c1 <= c;
+
+    }
 }
-
 

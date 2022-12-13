@@ -17,7 +17,8 @@ public class Day12 extends Day {
 
     @Override
     public Object part2() {
-        return -1;
+        Board board = convertInput();
+        return board.findShortestPathPart2();
     }
 
     private Board convertInput(){
