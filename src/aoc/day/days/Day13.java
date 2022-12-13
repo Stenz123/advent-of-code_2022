@@ -13,7 +13,7 @@ public class Day13 extends Day {
         int result = 0;
         int pairCount = 1;
         for (int i = 0; i < list.size(); i+=2) {
-            if (compareTo((List<Object>) list.get(i), (List<Object>) list.get(i+1))){
+            if (compareTo(list.get(i), list.get(i+1))==-1) {
                 result += pairCount;
             }
             pairCount++;
@@ -21,58 +21,61 @@ public class Day13 extends Day {
         return result;
     }
 
-    public boolean compareTo(List<Object> list1, List<Object> list2){
-        //larger list
-        for (int i = 0; i < list1.size(); i++) {
-            Object o2;
-            Object o1 = list1.get(i);
-            try {
-                o2 = list2.get(i);
-            }catch (Exception e) {
-                return true;
+    public int compareTo(List<Object> left, List<Object> right) {
+
+        if (left.size() == right.size() && left.equals(right)) {
+            return 0;
+        }
+
+        int minLength = Math.min(left.size(), right.size());
+        for (int i = 0; i < minLength; i++) {
+            Object leftValue = left.get(i);
+            Object rightValue = right.get(i);
+
+            // If both values are integers, compare them directly
+            if (leftValue instanceof Integer && rightValue instanceof Integer) {
+                int leftInt = (Integer) leftValue;
+                int rightInt = (Integer) rightValue;
+                if (leftInt < rightInt) {
+                    return -1;
+                } else if (leftInt > rightInt) {
+                    return 1;
+                }
             }
 
-
-            if(o1 instanceof Integer && o2 instanceof Integer){
-                if((Integer) o1 > (Integer) o2){
-                    return false;
-                }
-            } else if (o1 instanceof List && o2 instanceof List){
-                if (((List<?>) o1).isEmpty() && ((List<?>) o2).isEmpty()){
-                    return true;
-                }
-                if(!compareTo((List<Object>) o1, (List<Object>) o2)){
-                    return false;
-                }
-            }else if (o1 instanceof List && o2 instanceof Integer){
-                if (((List<?>) o1).isEmpty()){
-                    return false;
-                }
-                List<Object> listO2 = new ArrayList<>();
-                for (int j = 0; j < ((List<?>) o1).size(); j++) {
-                    listO2.add(o2);
-                }
-                if(!compareTo((List<Object>) o1, listO2)){
-                    return false;
+            // If both values are lists, compare them recursively
+            if (leftValue instanceof List && rightValue instanceof List) {
+                int result = compareTo((List<Object>) leftValue, (List<Object>) rightValue);
+                if (result != 0) {
+                    return result;
                 }
             }
-            else if (o1 instanceof Integer && o2 instanceof List) {
-                if (((List<?>) o2).isEmpty()){
-                    return false;
+
+            // If exactly one value is an integer, convert it to a list and retry the comparison
+            if (leftValue instanceof Integer && rightValue instanceof List) {
+                List<Object> leftList = new ArrayList<Object>();
+                leftList.add(leftValue);
+                int result = compareTo(leftList, (List<Object>) rightValue);
+                if (result != 0) {
+                    return result;
                 }
-                if(((List<?>) o2).size()==0){
-                    return false;
-                }
-                List<Object> listO1 = new ArrayList<>();
-                for (int j = 0; j < ((List<?>) o2).size(); j++) {
-                    listO1.add(o1);
-                }
-                if(!compareTo(listO1, (List<Object>) o2)){
-                    return false;
+            }
+            if (leftValue instanceof List && rightValue instanceof Integer) {
+                List<Object> rightList = new ArrayList<Object>();
+                rightList.add(rightValue);
+                int result = compareTo((List<Object>) leftValue, rightList);
+                if (result != 0) {
+                    return result;
                 }
             }
         }
-        return true;
+        if (left.size() < right.size()) {
+            return -1;
+        } else if (left.size() > right.size()) {
+            return 1;
+        }else {
+            return 0;
+        }
     }
 
     public List<List<Object>> parseInput(){
