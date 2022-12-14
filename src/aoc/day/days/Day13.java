@@ -3,6 +3,7 @@ package aoc.day.days;
 import aoc.day.Day;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Day13 extends Day {
@@ -19,6 +20,32 @@ public class Day13 extends Day {
             pairCount++;
         }
         return result;
+    }
+
+    @Override
+    public Object part2() {
+        List<List<Object>> list = parseInput();
+        List<Object> d1 = parseList("[[2]]");
+        List<Object> d2 = parseList("[[6]]");
+        list.add(d1);
+        list.add(d2);
+
+        Collections.sort(list, (o1, o2) -> compareTo(o1, o2));
+        int divider1 = 1;
+        int divider2 = 1;
+        for (int i = 0; i < list.size(); i++){
+
+            if (compareTo(list.get(i),parseList("[[2]]"))==-1) {
+                divider1++;
+            }else {
+                System.out.println();
+            }
+            if (compareTo(list.get(i),parseList("[[6]]"))==-1) {
+                divider2++;
+            }
+
+        }
+        return divider1*divider2;
     }
 
     public int compareTo(List<Object> left, List<Object> right) {
@@ -77,7 +104,6 @@ public class Day13 extends Day {
             return 0;
         }
     }
-
     public List<List<Object>> parseInput(){
         List<String> rawInput = getDayInput();
         List<List<Object>> list = new ArrayList<>();
@@ -89,6 +115,7 @@ public class Day13 extends Day {
 
         return list;
     }
+
     public int findClosingBracket(int startIndex, String rawInput){
         int j = startIndex;
 
@@ -144,9 +171,4 @@ public class Day13 extends Day {
 
     }
 
-
-    @Override
-    public Object part2() {
-        return -1;
-    }
 }
