@@ -25,7 +25,7 @@ public class Day15 extends Day {
         List<KoordinatePair> pairs = new LinkedList<>();
         for (KoordinatePair koordinate : visitedCompresed) {
             if (koordinate.getStart().getY() == 2000000) {
-                System.out.println(koordinate);
+                //System.out.println(koordinate);
                 pairs.add(koordinate);
             }
         }
@@ -69,7 +69,7 @@ public class Day15 extends Day {
         }
 
         //return printMap(visitedCompresed,0,4000000);
-        return printMap(visitedCompresed,2766583,2766583);
+        return printMap(visitedCompresed,2766584,2766584);
     }
 
     private void markSignalOfDetector(Koordinate detector, Koordinate beacon, PriorityQueue<KoordinatePair> visitedCompresed){
@@ -133,7 +133,7 @@ public class Day15 extends Day {
 
     private String printMap(PriorityQueue<KoordinatePair> visitedCompresed, int start, int end){
         while (visitedCompresed.poll().getStart().getY()<start){
-            System.out.println(visitedCompresed.peek());
+            //System.out.println(visitedCompresed.peek());
         }
         for (int i = start; i <= end;i++) {
             List<Integer> areas = new ArrayList<>();
@@ -159,13 +159,31 @@ public class Day15 extends Day {
 
             }
             if (!checkRange(areas)){
-                return "x:"+getFirstNotCovered(areas)+" y:"+i;
+                int x = 0;
+                for (int j = 4000000; j >= 0; j--) {
+                    if (areaContains(j,areas)) {
+                        System.out.print("#");
+                    }else{
+                        System.out.print(".");
+                        x=j;
+                        break;
+                    }
+                }
+                return "x:"+(x)+" y:"+i;
             }else {
                 System.out.println("Checked " + i);
             }
         }
 
         return "";
+    }
+    private boolean areaContains(int x, List<Integer> areas){
+        for (int i = 0; i < areas.size(); i+=2) {
+            if (x>=areas.get(i) && x<=areas.get(i+1)){
+                return true;
+            }
+        }
+        return false;
     }
     public boolean checkRange(List<Integer> rangeList) {
         // Create a bit array to store which numbers are covered by the range
