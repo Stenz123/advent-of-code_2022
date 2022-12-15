@@ -1,5 +1,8 @@
 package aoc.day.days.day9;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class Koordinate {
@@ -35,14 +38,22 @@ public class Koordinate {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null) return false;
-        if (!Koordinate.class.isAssignableFrom(o.getClass())) return false;
-        return x == ((Koordinate) o).getX() &&
-                y == ((Koordinate) o).getY();
+        if (o == null || getClass() != o.getClass()) return false;
+        Koordinate that = (Koordinate) o;
+        return x == that.x && y == that.y;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public List<Koordinate> getNeighbours() {
+        List<Koordinate> result = new ArrayList<>();
+        result.add(new Koordinate(x+1,y));
+        result.add(new Koordinate(x-1,y));
+        result.add(new Koordinate(x,y+1));
+        result.add(new Koordinate(x,y-1));
+        return result;
     }
 }
