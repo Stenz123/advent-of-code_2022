@@ -5,6 +5,6 @@ import aoc.day.days.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(new Day15().part2());
+        System.out.println(new Day17().part1());
     }
 }
